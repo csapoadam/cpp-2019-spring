@@ -6,6 +6,19 @@
 // #include "people.h"
 // #include "friends.h"
 #include <iostream>
+#include <vector>
+
+void printState(std::vector<Person*> users, NetworkManager* netmgr) {
+	for (auto p : users) {
+		p->listRequests(netmgr);
+	}
+	std::cout << std::endl;
+	for (auto p : users) {
+		p->listFriends(netmgr);
+	}
+	std::cout << std::endl;
+}
+
 
 int main()
 {
@@ -33,29 +46,20 @@ int main()
 	}
 
 	if (bela && panni && fanni) {
-		bela->listRequests(&netmgr);
-		panni->listRequests(&netmgr);
-		fanni->listRequests(&netmgr);
-		std::cout << std::endl;
+		std::vector<Person*> myusers = {bela, panni, fanni};
 
-		bela->listFriends(&netmgr);
-		panni->listFriends(&netmgr);
-		fanni->listFriends(&netmgr);
-		std::cout << std::endl;
+		printState(myusers, &netmgr);
 
 		std::cout << panni->name << " will now accept request from " << bela->name << std::endl;
 		panni->acceptRequestFrom(belaid, &netmgr);
 		std::cout << std::endl;
 		std::cout << "so we now have:" << std::endl;
-		bela->listRequests(&netmgr);
-		panni->listRequests(&netmgr);
-		fanni->listRequests(&netmgr);
-		std::cout << std::endl;
+		printState(myusers, &netmgr);
 
-		bela->listFriends(&netmgr);
-		panni->listFriends(&netmgr);
-		fanni->listFriends(&netmgr);
-		std::cout << std::endl;
+		// now test that neither bela nor panni can send request to each other any longer!
+		bela->sendRequestTo(panniid, &netmgr);
+		panni->sendRequestTo(belaid, &netmgr);
+		printState(myusers, &netmgr);// good
 	}
 
 	/*
