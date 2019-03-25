@@ -6,8 +6,8 @@
 #include <algorithm>
 
 
-void Person::sendRequestTo(int otherUserId, NetworkManager* mgr) {
-	mgr->createRequest(memberid, otherUserId);
+void Person::sendRequestTo(int otherUserId) {
+	mgrptr->createRequest(memberid, otherUserId);
 }
 
 void Person::setRequest(FriendRequest* fr) {
@@ -30,15 +30,15 @@ void Person::listFriends() {
 	}
 }
 
-void Person::acceptRequestFrom(int fromid, NetworkManager* mgr) {
+void Person::acceptRequestFrom(int fromid) {
 	if (requests.find(fromid) != requests.end()) {
 		FriendRequest* req = requests[fromid];
 		requests.erase(fromid);
-		mgr->acceptRequest(req);
+		mgrptr->acceptRequest(req);
 	}
 }
 
-void Person::acceptAllRequests(NetworkManager* mgr) {
+void Person::acceptAllRequests() {
 	struct RequestAcceptor {
 		NetworkManager* mgrp;
 		RequestAcceptor(NetworkManager* mgrp) : mgrp(mgrp) {}
@@ -47,7 +47,7 @@ void Person::acceptAllRequests(NetworkManager* mgr) {
 		}
 	};
 
-	std::for_each(requests.begin(), requests.end(), RequestAcceptor(mgr));
+	std::for_each(requests.begin(), requests.end(), RequestAcceptor(mgrptr));
 	requests.clear();
 }
 
@@ -66,8 +66,8 @@ void Person::tagFriend(int taggeeid) {
 	}
 }
 
-void Person::purgeStaleRelationships(NetworkManager* mgr) {
-	mgr->purgeStaleRelationships(memberid);
+void Person::purgeStaleRelationships() {
+	mgrptr->purgeStaleRelationships(memberid);
 }
 
 void Person::unfriend(int id) {

@@ -18,7 +18,7 @@ public:
 	NetworkManager() {}
 	USERID registerUser(std::string name) {
 		memberid++;
-		members.insert(std::make_pair(memberid, new Person(name, memberid)));
+		members.insert(std::make_pair(memberid, new Person(name, memberid, this)));
 		return memberid;
 	}
 

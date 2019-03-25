@@ -35,14 +35,14 @@ int main()
 	Person* sandor = netmgr.getUserById(sandorid);
 
 	if (bela) {
-		bela->sendRequestTo(panniid, &netmgr);
-		bela->sendRequestTo(panniid, &netmgr); // should print request already sent...
-		bela->sendRequestTo(belaid, &netmgr); // cannot send to oneself
-		bela->sendRequestTo(15, &netmgr); // no such user w/ id of 15
+		bela->sendRequestTo(panniid);
+		bela->sendRequestTo(panniid); // should print request already sent...
+		bela->sendRequestTo(belaid); // cannot send to oneself
+		bela->sendRequestTo(15); // no such user w/ id of 15
 	}
 
 	if (fanni) {
-		fanni->sendRequestTo(panniid, &netmgr);
+		fanni->sendRequestTo(panniid);
 	}
 
 	if (bela && panni && fanni) {
@@ -53,21 +53,21 @@ int main()
 		//std::cout << panni->name << " will now accept request from " << bela->name << std::endl;
 		//panni->acceptRequestFrom(belaid, &netmgr);
 		std::cout << panni->name << " will now accept all requests" << std::endl;
-		panni->acceptAllRequests(&netmgr);
+		panni->acceptAllRequests();
 		std::cout << std::endl;
 		std::cout << "so we now have:" << std::endl;
 		printState(myusers);
 
 		// now test that neither bela nor panni can send request to each other any longer!
-		bela->sendRequestTo(panniid, &netmgr);
-		panni->sendRequestTo(belaid, &netmgr);
+		bela->sendRequestTo(panniid);
+		panni->sendRequestTo(belaid);
 		printState(myusers);// good
 
 		std::cout << "Let's say " << fanni->name << " now tags " << panni->name << std::endl;
 		fanni->tagFriend(panniid);
 
 		std::cout << "Let's say " << panni->name << " now purges stale relationships" << std::endl;
-		panni->purgeStaleRelationships(&netmgr); // should remove Bela
+		panni->purgeStaleRelationships(); // should remove Bela
 
 		printState(myusers);
 	}

@@ -9,21 +9,23 @@ class Relationship;
 class NetworkManager;
 
 class Person {
+private:
+	NetworkManager * mgrptr;
 public:
-	Person(std::string n, int id) : name{ n }, memberid(id) {}
+	Person(std::string n, int id, NetworkManager* mgr) : name{ n }, memberid(id), mgrptr(mgr) {}
 	std::string name;
 	int memberid;
 	std::map <int, FriendRequest*> requests; // egy embertol csak egy request johet!
 	std::map <int, Relationship*> relationships; // kivel van a relationship? Ez egy egyedi int! jol keresheto
 	// jo ha map-et hasznalunk mert gyorsabban keresheto mint set
-	void sendRequestTo(int otherUserId, NetworkManager* mgr);
+	void sendRequestTo(int otherUserId);
 	void setRequest(FriendRequest*);
 	void listRequests();
 	void listFriends();
-	void acceptRequestFrom(int, NetworkManager*);
-	void acceptAllRequests(NetworkManager*);
+	void acceptRequestFrom(int);
+	void acceptAllRequests();
 	void addRelationship(Relationship*);
 	void tagFriend(int taggeeid);
-	void purgeStaleRelationships(NetworkManager* mgr);
+	void purgeStaleRelationships();
 	void unfriend(int id);
 };
