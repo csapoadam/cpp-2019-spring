@@ -1,7 +1,10 @@
 #include "stdafx.h"
 #include "networkmanager.h"
+#include "people.h"
+#include "friends.h"
 
 USERID NetworkManager::memberid = -1;
+NetworkManager* NetworkManager::instance = nullptr;
 
 USERID NetworkManager::registerUser(std::string name) {
 	memberid++;
@@ -14,6 +17,17 @@ void NetworkManager::printMembers() {
 	for (auto p : members) {
 		std::cout << "  -> " << p.first << ": " << p.second->name << std::endl;
 	}
+}
+
+void NetworkManager::printState() {
+	for (auto p : members) {
+		p.second->listRequests();
+	}
+	std::cout << std::endl;
+	for (auto p : members) {
+		p.second->listFriends();
+	}
+	std::cout << std::endl;
 }
 
 Person* NetworkManager::getUserById(USERID id) {

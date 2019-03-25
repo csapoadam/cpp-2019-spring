@@ -26,14 +26,10 @@ public:
 	Relationship(Person*, Person*);
 	~Relationship();
 	Person* getFriendOfPersonWithId(int id);
-	std::pair<Person*, Person*> getPair() {
-		return std::make_pair(personA, personB);
-	}
+	std::pair<Person*, Person*> getPair();
 	void tagFriend(int taggeeid);
 	bool isStale(); // stale relationship, haha
-	// bool involves(std::string name);
 	bool involves(int userid);
-	// void remove();
 private:
 	Person* const personA;
 	Person* const personB;

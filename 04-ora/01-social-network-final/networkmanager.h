@@ -1,12 +1,13 @@
 #pragma once
 
-#include "people.h"
-#include "friends.h"
 #include <set>
 #include <map>
 #include <string>
 
 typedef int USERID;
+class Person;
+class Relationship;
+class FriendRequest;
 
 class NetworkManager {
 private:
@@ -14,13 +15,22 @@ private:
 	std::set<Relationship*> relationships;
 	std::set<FriendRequest*> requests;
 	static USERID memberid;
+	static NetworkManager* instance;
 
+	NetworkManager() {}
 	bool areFriends(USERID, USERID);
 	bool wasRequestSentByXToY(USERID, USERID);
 public:
-	NetworkManager() {}
+	static NetworkManager* getInstance()
+	{
+		if (!instance) {
+			instance = new NetworkManager();
+		}
+		return instance;
+	}
 	USERID registerUser(std::string name);
 	void printMembers();
+	void printState();
 	Person* getUserById(USERID id);
 	void createRequest(USERID sender, USERID receiver);
 	void acceptRequest(FriendRequest* fr);

@@ -17,17 +17,6 @@ std::string FriendRequest::getSenderName(){
 void FriendRequest::accept() {
 	isAccepted = true;
 	isPending = false;
-	/*
-	from->requestAcceptedBy(to);
-	// miutan mar a Relationship-et is modellezzuk
-	// elegansabb, ha a FriendRequest jegyzi be a kapcsolatot
-	// mindket felnel!
-	Relationship* r = new Relationship(to, from); // na ezt erdemes atgondolni - ki
-	// fog valaha delete-et hivni ra?
-	// ha a kapcsolat megszunik delete-et kell hivni ra!
-	from->addRelationship(r);
-	to->addRelationship(r);
-	*/
 }
 
 void FriendRequest::reject() {
@@ -53,6 +42,10 @@ Person* Relationship::getFriendOfPersonWithId(int id) {
 	return personA;
 }
 
+std::pair<Person*, Person*> Relationship::getPair() {
+	return std::make_pair(personA, personB);
+}
+
 void Relationship::tagFriend(int taggeeid) {
 	if (personA->memberid == taggeeid) {
 		std::cout << personB->name << " has tagged " << personA->name << std::endl;
@@ -74,11 +67,3 @@ bool Relationship::isStale() {
 bool Relationship::involves(int userid) {
 	return personA->memberid == userid || personB->memberid == userid;
 }
-
-/*
-void Relationship::remove() {
-	std::cout << "calling unfriend for " << personA->name << " and " << personB->name << std::endl;
-	personA->unfriend(personB->name);
-	personB->unfriend(personA->name);
-}
-*/

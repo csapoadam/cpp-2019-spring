@@ -3,36 +3,29 @@
 
 #include "stdafx.h"
 #include "networkmanager.h"
-// #include "people.h"
-// #include "friends.h"
+#include "people.h"
 #include <iostream>
 #include <vector>
 
-void printState(std::vector<Person*> users) {
-	for (auto p : users) {
-		p->listRequests();
-	}
-	std::cout << std::endl;
-	for (auto p : users) {
-		p->listFriends();
-	}
-	std::cout << std::endl;
+void printState() {
+	NetworkManager* m = NetworkManager::getInstance();
+	m->printState();
 }
 
 
 int main()
 {
-	NetworkManager netmgr;
-	int belaid = netmgr.registerUser("Bela");
-	int panniid = netmgr.registerUser("Panni");
-	int fanniid = netmgr.registerUser("Fanni");
-	int sandorid = netmgr.registerUser("Sandor");
-	netmgr.printMembers();
+	NetworkManager* netmgr = NetworkManager::getInstance();
+	int belaid = netmgr->registerUser("Bela");
+	int panniid = netmgr->registerUser("Panni");
+	int fanniid = netmgr->registerUser("Fanni");
+	int sandorid = netmgr->registerUser("Sandor");
+	netmgr->printMembers();
 
-	Person* bela = netmgr.getUserById(belaid);
-	Person* panni = netmgr.getUserById(panniid);
-	Person* fanni = netmgr.getUserById(fanniid);
-	Person* sandor = netmgr.getUserById(sandorid);
+	Person* bela = netmgr->getUserById(belaid);
+	Person* panni = netmgr->getUserById(panniid);
+	Person* fanni = netmgr->getUserById(fanniid);
+	Person* sandor = netmgr->getUserById(sandorid);
 
 	if (bela) {
 		bela->sendRequestTo(panniid);
@@ -46,9 +39,7 @@ int main()
 	}
 
 	if (bela && panni && fanni) {
-		std::vector<Person*> myusers = {bela, panni, fanni};
-
-		printState(myusers);
+		printState();
 
 		//std::cout << panni->name << " will now accept request from " << bela->name << std::endl;
 		//panni->acceptRequestFrom(belaid, &netmgr);
@@ -56,12 +47,12 @@ int main()
 		panni->acceptAllRequests();
 		std::cout << std::endl;
 		std::cout << "so we now have:" << std::endl;
-		printState(myusers);
+		printState();
 
 		// now test that neither bela nor panni can send request to each other any longer!
 		bela->sendRequestTo(panniid);
 		panni->sendRequestTo(belaid);
-		printState(myusers);// good
+		printState();// good
 
 		std::cout << "Let's say " << fanni->name << " now tags " << panni->name << std::endl;
 		fanni->tagFriend(panniid);
@@ -69,7 +60,7 @@ int main()
 		std::cout << "Let's say " << panni->name << " now purges stale relationships" << std::endl;
 		panni->purgeStaleRelationships(); // should remove Bela
 
-		printState(myusers);
+		printState();
 	}
 
 	std::cin.get();

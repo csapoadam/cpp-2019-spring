@@ -28,4 +28,5 @@ public:
 	void tagFriend(int taggeeid);
 	void purgeStaleRelationships();
 	void unfriend(int id);
+	// void unfriendAndNotifyManager(int id); // todo: calling unfriend directly will not remove it from manager...
 };
