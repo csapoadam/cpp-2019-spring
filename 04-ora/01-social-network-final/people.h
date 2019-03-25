@@ -18,7 +18,6 @@ public:
 	std::map <int, FriendRequest*> requests; // egy embertol csak egy request johet!
 	std::map <int, Relationship*> relationships; // kivel van a relationship? Ez egy egyedi int! jol keresheto
 	// jo ha map-et hasznalunk mert gyorsabban keresheto mint set
-	void sendRequestTo(int otherUserId);
 	void setRequest(FriendRequest*);
 	void listRequests();
 	void listFriends();
@@ -26,7 +25,7 @@ public:
 	void acceptAllRequests();
 	void addRelationship(Relationship*);
 	void tagFriend(int taggeeid);
-	void purgeStaleRelationships();
+	void getStaleRelationships(std::vector<Relationship*>& staleRels);
 	void unfriend(int id);
 	// void unfriendAndNotifyManager(int id); // todo: calling unfriend directly will not remove it from manager...
 };

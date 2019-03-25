@@ -101,23 +101,41 @@ void NetworkManager::acceptRequest(FriendRequest* fr) {
 
 }
 
-void NetworkManager::purgeStaleRelationships(USERID whoseRelationships) {
-	std::vector<Relationship*> relationshipsToPurge;
-
-	for (auto r : relationships) {
-		if (r->involves(whoseRelationships) && r->isStale()) {
-			relationshipsToPurge.push_back(r);
-		}
+void NetworkManager::acceptAllRequests(USERID who) {
+	Person* user = getUserById(who);
+	if (user) {
+		user->acceptAllRequests();
 	}
+}
 
-	for (auto r : relationshipsToPurge) {
-		auto pos = relationships.find(r);
-		if (pos != relationships.end()) {
-			relationships.erase(pos);
+void NetworkManager::tag(USERID whotags, USERID whom) {
+	Person* user = getUserById(whotags);
+	if (user) {
+		user->tagFriend(whom);
+	}
+}
+
+void NetworkManager::acceptRequest(USERID receiver, USERID sender) {
+	Person* recver = getUserById(receiver);
+	if (recver) {
+		recver->acceptRequestFrom(sender);
+	}
+}
+
+void NetworkManager::purgeStaleRelationships(USERID whoseRelationships) {
+	Person* user = getUserById(whoseRelationships);
+	if (user) {
+		std::vector<Relationship*> topurge;
+		user->getStaleRelationships(topurge);
+		for (auto r : topurge) {
+			auto pos = relationships.find(r);
+			if (pos != relationships.end()) {
+				relationships.erase(pos);
+			}
+			std::pair<Person*, Person*> p = r->getPair();
+			p.first->unfriend(p.second->memberid);
+			p.second->unfriend(p.first->memberid);
+			delete r; // try commented out too!
 		}
-		std::pair<Person*, Person*> p = r->getPair();
-		p.first->unfriend(p.second->memberid);
-		p.second->unfriend(p.first->memberid);
-		delete r; // try commented out too!
 	}
 }

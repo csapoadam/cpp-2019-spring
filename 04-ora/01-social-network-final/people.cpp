@@ -6,10 +6,6 @@
 #include <algorithm>
 
 
-void Person::sendRequestTo(int otherUserId) {
-	mgrptr->createRequest(memberid, otherUserId);
-}
-
 void Person::setRequest(FriendRequest* fr) {
 	requests.insert(std::make_pair(fr->from->memberid, fr));
 	std::cout << name << " has received an invitation from " << fr->getSenderName() << std::endl;
@@ -66,8 +62,12 @@ void Person::tagFriend(int taggeeid) {
 	}
 }
 
-void Person::purgeStaleRelationships() {
-	mgrptr->purgeStaleRelationships(memberid);
+void Person::getStaleRelationships(std::vector<Relationship*>& staleRels) {
+	for (auto r : relationships) {
+		if (r.second->isStale()) {
+			staleRels.push_back(r.second);
+		}
+	}
 }
 
 void Person::unfriend(int id) {

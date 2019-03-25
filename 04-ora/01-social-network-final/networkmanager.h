@@ -34,6 +34,9 @@ public:
 	Person* getUserById(USERID id);
 	void createRequest(USERID sender, USERID receiver);
 	void acceptRequest(FriendRequest* fr);
+	void acceptRequest(USERID receiver, USERID sender);
+	void acceptAllRequests(USERID who);
+	void tag(USERID whotags, USERID whom);
 	void purgeStaleRelationships(USERID whoseRelationships);
 };
 
