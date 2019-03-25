@@ -41,19 +41,6 @@ public:
 		}
 	}
 
-	void listFriendsOfMember(USERID id) {
-		Person* member = getUserById(id);
-		if (member) {
-			std::cout << "Friends of " << member->name << " are:" << std::endl;
-			for (auto r : relationships) {
-				if (r->involves(id)) {
-					Person* other = r->getFriendOfPersonWithId(id);
-					std::cout << "  -> " << other->name << std::endl;
-				}
-			}
-		}
-	}
-
 	Person* getUserById(USERID id) {
 		auto pos = members.find(id);
 		if (pos != members.end()) {
@@ -113,6 +100,8 @@ public:
 		fr->accept();
 		Relationship* r = new Relationship(fr->from, fr->to);
 		relationships.insert(r);
+		fr->from->addRelationship(r);
+		fr->to->addRelationship(r);
 
 		auto pos = requests.find(fr);
 		if (pos != requests.end()) {
@@ -145,6 +134,9 @@ public:
 			if (pos != relationships.end()) {
 				relationships.erase(pos);
 			}
+			std::pair<Person*, Person*> p = r->getPair();
+			p.first->unfriend(p.second->memberid);
+			p.second->unfriend(p.first->memberid);
 			delete r; // try commented out too!
 		}
 	}

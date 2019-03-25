@@ -14,7 +14,7 @@ void printState(std::vector<Person*> users, NetworkManager* netmgr) {
 	}
 	std::cout << std::endl;
 	for (auto p : users) {
-		p->listFriends(netmgr);
+		p->listFriends();
 	}
 	std::cout << std::endl;
 }

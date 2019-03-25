@@ -14,13 +14,16 @@ public:
 	std::string name;
 	int memberid;
 	std::map <int, FriendRequest*> requests; // egy embertol csak egy request johet!
+	std::map <int, Relationship*> relationships; // kivel van a relationship? Ez egy egyedi int! jol keresheto
 	// jo ha map-et hasznalunk mert gyorsabban keresheto mint set
 	void sendRequestTo(int otherUserId, NetworkManager* mgr);
 	void setRequest(FriendRequest*);
 	void listRequests(NetworkManager*);
-	void listFriends(NetworkManager*);
+	void listFriends();
 	void acceptRequestFrom(int, NetworkManager*);
 	void acceptAllRequests(NetworkManager*);
+	void addRelationship(Relationship*);
 	void tagFriend(int taggeeid, NetworkManager* mgr);
 	void purgeStaleRelationships(NetworkManager* mgr);
+	void unfriend(int id);
 };
