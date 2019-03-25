@@ -45,6 +45,14 @@ void Person::acceptAllRequests(NetworkManager* mgr) {
 	requests.clear();
 }
 
+void Person::tagFriend(int taggeeid, NetworkManager* mgr) {
+	mgr->tag(memberid, taggeeid); // todo: would be better to have relationships at hand...
+}
+
+void Person::purgeStaleRelationships(NetworkManager* mgr) {
+	mgr->purgeStaleRelationships(memberid);
+}
+
 
 /*
 bool Person::isFriendOf(Person* other) {
@@ -70,61 +78,6 @@ void Person::rejectRequestFrom(std::string name) {
 /*
 void Person::addRelationship(Relationship* r) {
 	relationships.push_back(r);
-}
-
-void Person::tagFriend(std::string nameOfFriend) {
-	class myFunctor {
-	public:
-		myFunctor(std::string nof) : friendName(nof) {}
-		void operator()(Relationship* r) {
-			r->tagFriend(friendName);
-		}
-	private:
-		std::string friendName;
-	};
-	
-	//std::for_each(relationships.begin(), relationships.end(), 
-	//	[](Relationship* r) {
-	//		r->tagFriend(nameOfFriend);
-	//	}
-	//);
-	
-	std::for_each(
-		relationships.begin(),
-		relationships.end(),
-		myFunctor(nameOfFriend)
-	);
-}
-*/
-
-/*
-void Person::purgeStaleRelationships() {
-	class StaleRelationshipsCollector {
-	public:
-		StaleRelationshipsCollector(std::vector<int>* vec) : cur(0) {
-			stale_inxes = vec;
-		}
-		void operator()(Relationship* r) {
-			if (r->isStale()) {
-				stale_inxes->push_back(cur);
-			}
-			cur++;
-		}
-	private:
-		std::vector<int>* stale_inxes;
-		int cur;
-	};
-	// kivulrol kell neki beadni a vektort, hogy utana megmaradjon!
-	std::vector<int> stale_indices;
-	StaleRelationshipsCollector src(&stale_indices);
-	std::for_each(relationships.begin(), relationships.end(), src);
-	for (int inx : stale_indices) {
-		Relationship* rhandle = relationships[inx]; // a cimet atmasoljuk
-		//mivel remove mar torli is a relationships vektorbol!
-		relationships[inx]->remove();
-		delete rhandle; // itt van a delete... hmm ez nem idealis
-		// ez az egesz sokkal szebb lenne egy relationshipManagerrel!
-	}
 }
 */
 

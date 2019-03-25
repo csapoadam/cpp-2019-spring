@@ -123,5 +123,31 @@ public:
 
 	}
 
+	void tag(USERID tagger, USERID taggee) {
+		for (auto r : relationships) {
+			if (r->involves(tagger) && r->involves(taggee)) {
+				r->tagFriend(taggee);
+			}
+		}
+	}
+
+	void purgeStaleRelationships(USERID whoseRelationships) {
+		std::vector<Relationship*> relationshipsToPurge;
+
+		for (auto r : relationships) {
+			if (r->involves(whoseRelationships) && r->isStale()) {
+				relationshipsToPurge.push_back(r);
+			}
+		}
+
+		for (auto r : relationshipsToPurge) {
+			auto pos = relationships.find(r);
+			if (pos != relationships.end()) {
+				relationships.erase(pos);
+			}
+			delete r; // try commented out too!
+		}
+	}
+
 };
 

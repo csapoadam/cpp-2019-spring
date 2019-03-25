@@ -53,12 +53,12 @@ Person* Relationship::getFriendOfPersonWithId(int id) {
 	return personA;
 }
 
-void Relationship::tagFriend(std::string taggee) {
-	if (personA->name == taggee) {
-		std::cout << personB->name << " has tagged " << taggee << std::endl;
+void Relationship::tagFriend(int taggeeid) {
+	if (personA->memberid == taggeeid) {
+		std::cout << personB->name << " has tagged " << personA->name << std::endl;
 		bTaggedACount++;
-	}else if (personB->name == taggee){
-		std::cout << personA->name << " has tagged " << taggee << std::endl;
+	}else if (personB->memberid == taggeeid){
+		std::cout << personA->name << " has tagged " << personB->name << std::endl;
 		aTaggedBCount++;
 	}
 }

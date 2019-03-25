@@ -26,7 +26,7 @@ public:
 	Relationship(Person*, Person*);
 	~Relationship();
 	Person* getFriendOfPersonWithId(int id);
-	void tagFriend(std::string taggee);
+	void tagFriend(int taggeeid);
 	bool isStale(); // stale relationship, haha
 	// bool involves(std::string name);
 	bool involves(int userid);

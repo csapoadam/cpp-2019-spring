@@ -25,7 +25,7 @@ public:
 	//void rejectRequestFrom(std::string);
 	//void requestAcceptedBy(Person*);
 	// void addRelationship(Relationship*);
-	// void tagFriend(std::string);
-	// void purgeStaleRelationships();
+	void tagFriend(int taggeeid, NetworkManager* mgr);
+	void purgeStaleRelationships(NetworkManager* mgr);
 	// void unfriend(std::string);
 };
