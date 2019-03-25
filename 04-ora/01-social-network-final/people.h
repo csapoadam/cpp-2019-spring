@@ -13,24 +13,19 @@ public:
 	Person(std::string n, int id) : name{ n }, memberid(id) {}
 	std::string name;
 	int memberid;
-	std::vector<Person*> friends; // baratok sorrendben vannak
-	std::vector<Relationship*> relationships; // alternativa: kapcsolatokat taroljunk...
-	// igy megtudhatjuk ki volt az elso, masodik, stb.
-	// ha torlunk elemet, beallithatjuk nullptr-re, igy a torles is hatekony,
-	// a maradek baratnal nem modosul, hogy ki a hanyadik!
-	std::map <std::string, FriendRequest*> requests; // egy embertol csak egy request johet!
+	std::map <int, FriendRequest*> requests; // egy embertol csak egy request johet!
 	// jo ha map-et hasznalunk mert gyorsabban keresheto mint set
 	void sendRequestTo(int otherUserId, NetworkManager* mgr);
 	void setRequest(FriendRequest*);
 	void listRequests(NetworkManager*);
-	void listFriends();
-	bool isFriendOf(Person*);
-	void acceptRequestFrom(std::string, bool eraseReq = true);
-	void rejectRequestFrom(std::string);
-	void acceptAllRequests();
-	void requestAcceptedBy(Person*);
-	void addRelationship(Relationship*);
-	void tagFriend(std::string);
-	void purgeStaleRelationships();
-	void unfriend(std::string);
+	void listFriends(NetworkManager*);
+	//bool isFriendOf(Person*);
+	void acceptRequestFrom(int, NetworkManager*);
+	//void rejectRequestFrom(std::string);
+	//void acceptAllRequests();
+	//void requestAcceptedBy(Person*);
+	// void addRelationship(Relationship*);
+	// void tagFriend(std::string);
+	// void purgeStaleRelationships();
+	// void unfriend(std::string);
 };

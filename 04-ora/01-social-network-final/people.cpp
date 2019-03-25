@@ -11,7 +11,7 @@ void Person::sendRequestTo(int otherUserId, NetworkManager* mgr) {
 }
 
 void Person::setRequest(FriendRequest* fr) {
-	requests.insert(std::make_pair(fr->getSenderName(), fr));
+	requests.insert(std::make_pair(fr->from->memberid, fr));
 	std::cout << name << " has received an invitation from " << fr->getSenderName() << std::endl;
 }
 
@@ -19,37 +19,26 @@ void Person::listRequests(NetworkManager* mgr) {
 	mgr->listRequestsForMember(memberid);
 }
 
-void Person::listFriends() {
-	/*
-	std::cout << "Friends of " << name << " based on friends vector are:" << std::endl;
-	for (auto fr : friends)  {
-		std::cout << "  -> " << fr->name << std::endl;
-	}*/
-	
-	std::cout << "Friends of " << name << " based on relationships vector are:" << std::endl;
-	for (auto r : relationships) {
-		std::cout << "  -> " << r->getFriendName(name) << std::endl;
-	}
-	
+void Person::listFriends(NetworkManager* mgr) {
+	// todo: store local cache of friends as well...
+	mgr->listFriendsOfMember(memberid);
 }
 
+void Person::acceptRequestFrom(int fromid, NetworkManager* mgr) {
+	if (requests.find(fromid) != requests.end()) {
+		FriendRequest* req = requests[fromid];
+		requests.erase(fromid);
+		mgr->acceptRequest(req);
+	}
+}
+
+
+/*
 bool Person::isFriendOf(Person* other) {
 	if (std::find(friends.begin(), friends.end(), other) != friends.end()) {
 		return true;
 	}
 	return false;
-}
-
-void Person::acceptRequestFrom(std::string name, bool eraseReq) {
-	if (requests.find(name) != requests.end()) {
-		requests[name]->accept();
-		friends.push_back(requests[name]->from); // alapbol inaccessible, de ha
-		// azt mondjuk, hogy const pointer akkor akar lehet accessible is!
-		// requests[name]->from = this; // ilyet meg jo h nem lehet!
-		if (eraseReq) {
-			requests.erase(name);
-		}
-	}
 }
 
 void Person::acceptAllRequests() {
@@ -74,7 +63,9 @@ void Person::rejectRequestFrom(std::string name) {
 		requests.erase(name);
 	}
 }
+*/
 
+/*
 void Person::addRelationship(Relationship* r) {
 	relationships.push_back(r);
 }
@@ -89,20 +80,22 @@ void Person::tagFriend(std::string nameOfFriend) {
 	private:
 		std::string friendName;
 	};
-	/*
-	std::for_each(relationships.begin(), relationships.end(), 
-		[](Relationship* r) {
-			r->tagFriend(nameOfFriend);
-		}
-	);
-	*/
+	
+	//std::for_each(relationships.begin(), relationships.end(), 
+	//	[](Relationship* r) {
+	//		r->tagFriend(nameOfFriend);
+	//	}
+	//);
+	
 	std::for_each(
 		relationships.begin(),
 		relationships.end(),
 		myFunctor(nameOfFriend)
 	);
 }
+*/
 
+/*
 void Person::purgeStaleRelationships() {
 	class StaleRelationshipsCollector {
 	public:
@@ -131,8 +124,11 @@ void Person::purgeStaleRelationships() {
 		// ez az egesz sokkal szebb lenne egy relationshipManagerrel!
 	}
 }
+*/
 
+/*
 void Person::unfriend(std::string other) {
+
 	class MyPredicate {
 	public:
 		MyPredicate(std::string o) : other(o) {}
@@ -167,3 +163,4 @@ void Person::unfriend(std::string other) {
 		),
 		relationships.end());
 }
+*/

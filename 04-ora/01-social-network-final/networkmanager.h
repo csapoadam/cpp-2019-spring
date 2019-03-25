@@ -41,6 +41,19 @@ public:
 		}
 	}
 
+	void listFriendsOfMember(USERID id) {
+		Person* member = getUserById(id);
+		if (member) {
+			std::cout << "Friends of " << member->name << " are:" << std::endl;
+			for (auto r : relationships) {
+				if (r->involves(id)) {
+					Person* other = r->getFriendOfPersonWithId(id);
+					std::cout << "  -> " << other->name << std::endl;
+				}
+			}
+		}
+	}
+
 	Person* getUserById(USERID id) {
 		auto pos = members.find(id);
 		if (pos != members.end()) {
@@ -94,6 +107,20 @@ public:
 		FriendRequest* fr = new FriendRequest(from, to);
 		requests.insert(fr);
 		to->setRequest(fr);
+	}
+
+	void acceptRequest(FriendRequest* fr) {
+		fr->accept();
+		Relationship* r = new Relationship(fr->from, fr->to);
+		relationships.insert(r);
+
+		auto pos = requests.find(fr);
+		if (pos != requests.end()) {
+			requests.erase(pos);
+		}
+		
+		delete fr; // test: without this line, memory not freed!
+
 	}
 
 };

@@ -6,6 +6,7 @@ class Person;
 class FriendRequest {
 public:
 	FriendRequest(Person* from, Person* to);
+	~FriendRequest();
 	std::string getSenderName();
 	void accept();
 	void reject();
@@ -24,12 +25,12 @@ class Relationship {
 public:
 	Relationship(Person*, Person*);
 	~Relationship();
-	std::string getFriendName(std::string);
+	Person* getFriendOfPersonWithId(int id);
 	void tagFriend(std::string taggee);
 	bool isStale(); // stale relationship, haha
 	// bool involves(std::string name);
 	bool involves(int userid);
-	void remove();
+	// void remove();
 private:
 	Person* const personA;
 	Person* const personB;

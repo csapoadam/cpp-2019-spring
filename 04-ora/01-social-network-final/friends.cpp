@@ -6,6 +6,10 @@ FriendRequest::FriendRequest(Person* f, Person* t): from(f), to(t) {
 	isPending = true;
 }
 
+FriendRequest::~FriendRequest() {
+	std::cout << "deleted friend request from " << from->name << " to " << to->name << "!" << std::endl;
+}
+
 std::string FriendRequest::getSenderName(){
 	return from->name;
 }
@@ -13,6 +17,7 @@ std::string FriendRequest::getSenderName(){
 void FriendRequest::accept() {
 	isAccepted = true;
 	isPending = false;
+	/*
 	from->requestAcceptedBy(to);
 	// miutan mar a Relationship-et is modellezzuk
 	// elegansabb, ha a FriendRequest jegyzi be a kapcsolatot
@@ -22,6 +27,7 @@ void FriendRequest::accept() {
 	// ha a kapcsolat megszunik delete-et kell hivni ra!
 	from->addRelationship(r);
 	to->addRelationship(r);
+	*/
 }
 
 void FriendRequest::reject() {
@@ -40,11 +46,11 @@ Relationship::~Relationship() {
 		personA->name << " and " << personB->name << " DESTROYED" << std::endl;
 }
 
-std::string Relationship::getFriendName(std::string other) {
-	if (other == personA->name) {
-		return personB->name;
+Person* Relationship::getFriendOfPersonWithId(int id) {
+	if (id == personA->memberid) {
+		return personB;
 	}
-	return personA->name;
+	return personA;
 }
 
 void Relationship::tagFriend(std::string taggee) {
@@ -69,8 +75,10 @@ bool Relationship::involves(int userid) {
 	return personA->memberid == userid || personB->memberid == userid;
 }
 
+/*
 void Relationship::remove() {
 	std::cout << "calling unfriend for " << personA->name << " and " << personB->name << std::endl;
 	personA->unfriend(personB->name);
 	personB->unfriend(personA->name);
 }
+*/
