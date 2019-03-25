@@ -64,7 +64,7 @@ int main()
 		printState(myusers);// good
 
 		std::cout << "Let's say " << fanni->name << " now tags " << panni->name << std::endl;
-		fanni->tagFriend(panniid, &netmgr);
+		fanni->tagFriend(panniid);
 
 		std::cout << "Let's say " << panni->name << " now purges stale relationships" << std::endl;
 		panni->purgeStaleRelationships(&netmgr); // should remove Bela

@@ -100,14 +100,6 @@ public:
 
 	}
 
-	void tag(USERID tagger, USERID taggee) {
-		for (auto r : relationships) {
-			if (r->involves(tagger) && r->involves(taggee)) {
-				r->tagFriend(taggee);
-			}
-		}
-	}
-
 	void purgeStaleRelationships(USERID whoseRelationships) {
 		std::vector<Relationship*> relationshipsToPurge;
 

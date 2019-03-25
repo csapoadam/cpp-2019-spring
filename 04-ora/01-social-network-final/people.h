@@ -23,7 +23,7 @@ public:
 	void acceptRequestFrom(int, NetworkManager*);
 	void acceptAllRequests(NetworkManager*);
 	void addRelationship(Relationship*);
-	void tagFriend(int taggeeid, NetworkManager* mgr);
+	void tagFriend(int taggeeid);
 	void purgeStaleRelationships(NetworkManager* mgr);
 	void unfriend(int id);
 };

@@ -57,8 +57,13 @@ void Person::addRelationship(Relationship* r) {
 	relationships.insert(std::make_pair(otherid, r));
 }
 
-void Person::tagFriend(int taggeeid, NetworkManager* mgr) {
-	mgr->tag(memberid, taggeeid); // todo: would be better to have relationships at hand...
+void Person::tagFriend(int taggeeid) {
+	for (auto p : relationships) {
+		Relationship* r = p.second;
+		if (r->involves(taggeeid)) {
+			r->tagFriend(taggeeid);
+		}
+	}
 }
 
 void Person::purgeStaleRelationships(NetworkManager* mgr) {
