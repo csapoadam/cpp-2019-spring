@@ -1,24 +1,22 @@
 #include "stdafx.h"
 #include "people.h"
 #include "friends.h"
+#include "networkmanager.h"
 #include <utility>
 #include <algorithm>
 
 
+void Person::sendRequestTo(int otherUserId, NetworkManager* mgr) {
+	mgr->createRequest(memberid, otherUserId);
+}
+
 void Person::setRequest(FriendRequest* fr) {
-	if (requests.find(fr->getSenderName()) != requests.end()) {
-		std::cout << "request from this guy or gal already received" << std::endl;
-		return;
-	}
 	requests.insert(std::make_pair(fr->getSenderName(), fr));
 	std::cout << name << " has received an invitation from " << fr->getSenderName() << std::endl;
 }
 
-void Person::listRequests() {
-	std::cout << "Requests received by " << name << " are:" << std::endl;
-	for (auto reqs : requests) {
-		std::cout << "  -> from " << reqs.first << std::endl;
-	}
+void Person::listRequests(NetworkManager* mgr) {
+	mgr->listRequestsForMember(memberid);
 }
 
 void Person::listFriends() {
@@ -156,7 +154,8 @@ void Person::unfriend(std::string other) {
 		MyRelationshipPredicate(std::string o) : other(o) {}
 		std::string other;
 		bool operator()(Relationship* r) {
-			return r->involves(other);
+			// return r->involves(other);
+			return true; // do this for time being so that code compiles
 		}
 	};
 

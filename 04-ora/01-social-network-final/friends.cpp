@@ -3,21 +3,7 @@
 #include "people.h"
 
 FriendRequest::FriendRequest(Person* f, Person* t): from(f), to(t) {
-	if (from == nullptr || to == nullptr) {
-		std::cerr << "Invalid friend request" << std::endl;
-	}
-	// senki sem kuldhet maganak
-	else if (from == to) {
-		std::cerr << "Cannot autofriend, silly miss Lizzy!" << std::endl;
-	}
-	// ha mar baratok, nem kuldhet requestet
-	else if (to->isFriendOf(from)) {
-		std::cerr << to->name << " and " << from->name << " are already friends!" << std::endl;
-	}
-	else {
-		isPending = true;
-		to->setRequest(this);
-	}
+	isPending = true;
 }
 
 std::string FriendRequest::getSenderName(){
@@ -79,8 +65,8 @@ bool Relationship::isStale() {
 	return aTaggedBCount == 0 && bTaggedACount == 0;
 }
 
-bool Relationship::involves(std::string name) {
-	return personA->name == name || personB->name == name;
+bool Relationship::involves(int userid) {
+	return personA->memberid == userid || personB->memberid == userid;
 }
 
 void Relationship::remove() {

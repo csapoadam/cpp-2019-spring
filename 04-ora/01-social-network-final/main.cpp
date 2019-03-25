@@ -10,18 +10,24 @@
 int main()
 {
 	NetworkManager netmgr;
-	netmgr.registerUser("Bela");
-	netmgr.registerUser("Panni");
-	netmgr.registerUser("Fanni");
-	netmgr.registerUser("Sandor");
+	int belaid = netmgr.registerUser("Bela");
+	int panniid = netmgr.registerUser("Panni");
+	int fanniid = netmgr.registerUser("Fanni");
+	int sandorid = netmgr.registerUser("Sandor");
 	netmgr.printMembers();
 
-	/*
-	Person p1("Bela");
-	Person p2("Panni");
-	Person p3("Fanni");
-	Person p4("Sandor");
+	Person* bela = netmgr.getUserById(belaid);
+	if (bela) {
+		bela->sendRequestTo(panniid, &netmgr);
+		bela->sendRequestTo(panniid, &netmgr); // should print request already sent...
+	}
 
+	Person* panni = netmgr.getUserById(panniid);
+	if (panni) {
+		panni->listRequests(&netmgr);
+	}
+
+	/*
 	FriendRequest req1(&p1, &p2);
 	// idempotens, ugye?
 	FriendRequest req2(&p1, &p2);

@@ -27,7 +27,8 @@ public:
 	std::string getFriendName(std::string);
 	void tagFriend(std::string taggee);
 	bool isStale(); // stale relationship, haha
-	bool involves(std::string name);
+	// bool involves(std::string name);
+	bool involves(int userid);
 	void remove();
 private:
 	Person* const personA;
