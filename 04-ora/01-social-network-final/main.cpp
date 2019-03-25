@@ -8,9 +8,9 @@
 #include <iostream>
 #include <vector>
 
-void printState(std::vector<Person*> users, NetworkManager* netmgr) {
+void printState(std::vector<Person*> users) {
 	for (auto p : users) {
-		p->listRequests(netmgr);
+		p->listRequests();
 	}
 	std::cout << std::endl;
 	for (auto p : users) {
@@ -48,7 +48,7 @@ int main()
 	if (bela && panni && fanni) {
 		std::vector<Person*> myusers = {bela, panni, fanni};
 
-		printState(myusers, &netmgr);
+		printState(myusers);
 
 		//std::cout << panni->name << " will now accept request from " << bela->name << std::endl;
 		//panni->acceptRequestFrom(belaid, &netmgr);
@@ -56,12 +56,12 @@ int main()
 		panni->acceptAllRequests(&netmgr);
 		std::cout << std::endl;
 		std::cout << "so we now have:" << std::endl;
-		printState(myusers, &netmgr);
+		printState(myusers);
 
 		// now test that neither bela nor panni can send request to each other any longer!
 		bela->sendRequestTo(panniid, &netmgr);
 		panni->sendRequestTo(belaid, &netmgr);
-		printState(myusers, &netmgr);// good
+		printState(myusers);// good
 
 		std::cout << "Let's say " << fanni->name << " now tags " << panni->name << std::endl;
 		fanni->tagFriend(panniid, &netmgr);
@@ -69,7 +69,7 @@ int main()
 		std::cout << "Let's say " << panni->name << " now purges stale relationships" << std::endl;
 		panni->purgeStaleRelationships(&netmgr); // should remove Bela
 
-		printState(myusers, &netmgr);
+		printState(myusers);
 	}
 
 	std::cin.get();

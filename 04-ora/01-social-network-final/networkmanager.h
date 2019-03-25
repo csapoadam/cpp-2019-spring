@@ -29,18 +29,6 @@ public:
 		}
 	}
 
-	void listRequestsForMember(USERID id) {
-		Person* member = getUserById(id);
-		if (member) {
-			std::cout << "Requests received by " << member->name << " are:" << std::endl;
-			for (auto req : requests) {
-				if (req->to == member) {
-					std::cout << "  -> from " << req->from->memberid << ": " << req->from->name << std::endl;
-				}
-			}
-		}
-	}
-
 	Person* getUserById(USERID id) {
 		auto pos = members.find(id);
 		if (pos != members.end()) {

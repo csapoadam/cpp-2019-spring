@@ -18,7 +18,7 @@ public:
 	// jo ha map-et hasznalunk mert gyorsabban keresheto mint set
 	void sendRequestTo(int otherUserId, NetworkManager* mgr);
 	void setRequest(FriendRequest*);
-	void listRequests(NetworkManager*);
+	void listRequests();
 	void listFriends();
 	void acceptRequestFrom(int, NetworkManager*);
 	void acceptAllRequests(NetworkManager*);

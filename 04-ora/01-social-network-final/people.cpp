@@ -15,8 +15,11 @@ void Person::setRequest(FriendRequest* fr) {
 	std::cout << name << " has received an invitation from " << fr->getSenderName() << std::endl;
 }
 
-void Person::listRequests(NetworkManager* mgr) {
-	mgr->listRequestsForMember(memberid);
+void Person::listRequests() {
+	std::cout << "Requests received by " << name << " are:" << std::endl;
+	for (auto p : requests) {
+		std::cout << "  -> from " << p.second->from->memberid << ": " << p.second->from->name << std::endl;
+	}
 }
 
 void Person::listFriends() {
