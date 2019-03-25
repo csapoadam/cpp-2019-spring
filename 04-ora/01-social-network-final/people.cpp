@@ -32,6 +32,19 @@ void Person::acceptRequestFrom(int fromid, NetworkManager* mgr) {
 	}
 }
 
+void Person::acceptAllRequests(NetworkManager* mgr) {
+	struct RequestAcceptor {
+		NetworkManager* mgrp;
+		RequestAcceptor(NetworkManager* mgrp) : mgrp(mgrp) {}
+		void operator()(std::pair<int, FriendRequest*> p) {
+			mgrp->acceptRequest(p.second);
+		}
+	};
+
+	std::for_each(requests.begin(), requests.end(), RequestAcceptor(mgr));
+	requests.clear();
+}
+
 
 /*
 bool Person::isFriendOf(Person* other) {
@@ -39,17 +52,6 @@ bool Person::isFriendOf(Person* other) {
 		return true;
 	}
 	return false;
-}
-
-void Person::acceptAllRequests() {
-	std::for_each(requests.begin(), requests.end(),
-		[](std::pair<std::string, FriendRequest*> np) {
-			//hajjaj, Liskov elv...
-			np.second->to->acceptRequestFrom(np.second->from->name, false);
-			// ehhez kell az is, hogy ne torljodjon a request azonnal...
-		}
-	);
-	requests.clear();
 }
 
 void Person::requestAcceptedBy(Person* p) {

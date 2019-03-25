@@ -50,8 +50,10 @@ int main()
 
 		printState(myusers, &netmgr);
 
-		std::cout << panni->name << " will now accept request from " << bela->name << std::endl;
-		panni->acceptRequestFrom(belaid, &netmgr);
+		//std::cout << panni->name << " will now accept request from " << bela->name << std::endl;
+		//panni->acceptRequestFrom(belaid, &netmgr);
+		std::cout << panni->name << " will now accept all requests" << std::endl;
+		panni->acceptAllRequests(&netmgr);
 		std::cout << std::endl;
 		std::cout << "so we now have:" << std::endl;
 		printState(myusers, &netmgr);

@@ -21,8 +21,8 @@ public:
 	void listFriends(NetworkManager*);
 	//bool isFriendOf(Person*);
 	void acceptRequestFrom(int, NetworkManager*);
+	void acceptAllRequests(NetworkManager*);
 	//void rejectRequestFrom(std::string);
-	//void acceptAllRequests();
 	//void requestAcceptedBy(Person*);
 	// void addRelationship(Relationship*);
 	// void tagFriend(std::string);
