@@ -2,12 +2,21 @@
 //
 
 #include "stdafx.h"
-#include "people.h"
-#include "friends.h"
+#include "networkmanager.h"
+// #include "people.h"
+// #include "friends.h"
 #include <iostream>
 
 int main()
 {
+	NetworkManager netmgr;
+	netmgr.registerUser("Bela");
+	netmgr.registerUser("Panni");
+	netmgr.registerUser("Fanni");
+	netmgr.registerUser("Sandor");
+	netmgr.printMembers();
+
+	/*
 	Person p1("Bela");
 	Person p2("Panni");
 	Person p3("Fanni");
@@ -60,6 +69,7 @@ int main()
 	p1.listFriends();
 	p2.listFriends();
 	p3.listFriends();
+	*/
 
 	std::cin.get();
     return 0;
