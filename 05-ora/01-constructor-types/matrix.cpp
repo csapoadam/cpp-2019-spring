@@ -25,11 +25,21 @@ Matrix::Matrix(const Matrix& other) :
 	// egy uj Matrix objektum jon letre a torzsben
 {
 	std::cout << "copy constructor called!" << std::endl;
-	for (int r = 0; r < nrows; r++) {
-		for (int c = 0; c < ncols; c++) {
-			data[r][c] = other.data[r][c];
-		}
+	this->unsafeCopyValuesFrom(other);
+}
+
+Matrix& Matrix::operator=(const Matrix& other) {
+	// inicializalni mar nem kell, hiszen mar
+	// inicializalva van ez az objektum
+	// viszont kell dimension check!!
+	std::cout << "assign operator called" << std::endl;
+	if (nrows != other.nrows || ncols != other.ncols) {
+		throw "cannot call assign op for matrices w/ different dimensions";
 	}
+	// unsafe, mert feltetelezzuk h a meretek ugyanazok
+	// nem baj, hogy private :)
+	this->unsafeCopyValuesFrom(other);
+	return *this;
 }
 
 Matrix::~Matrix() {
@@ -55,6 +65,14 @@ int* Matrix::operator[](int rowinx) {
 		return data[rowinx];
 	}
 	return nullptr;
+}
+
+void Matrix::unsafeCopyValuesFrom(const Matrix& other) {
+	for (int r = 0; r < nrows; r++) {
+		for (int c = 0; c < ncols; c++) {
+			data[r][c] = other.data[r][c];
+		}
+	}
 }
 
 
