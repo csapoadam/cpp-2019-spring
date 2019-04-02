@@ -10,5 +10,6 @@ public:
 	Matrix(int rows, int cols);
 	~Matrix();
 	void print();
+	int* operator[](int rowinx);
 };
 

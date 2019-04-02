@@ -35,4 +35,11 @@ void Matrix::print() {
 	}
 }
 
+int* Matrix::operator[](int rowinx) {
+	if (rowinx < nrows) {
+		return data[rowinx];
+	}
+	return nullptr;
+}
+
 
