@@ -48,7 +48,7 @@ void worker() {
 
 	m1.print();
 	m2.print();
-	m3.print();
+	m3.print(); // m3 itt most mar csupa 0 (vagy felul lett irva szemettel)
 	m4.print();
 	m5.print();
 }

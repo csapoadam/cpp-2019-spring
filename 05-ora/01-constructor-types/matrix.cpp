@@ -28,6 +28,16 @@ Matrix::Matrix(const Matrix& other) :
 	this->unsafeCopyValuesFrom(other);
 }
 
+Matrix::Matrix(Matrix&& other) :
+	Matrix(other.nrows, other.ncols) {
+	std::cout << "Move constructor called" << std::endl;
+	int** olddata = data;
+	data = other.data;
+	other.data = olddata; // mivel other destruktora meg fog
+						  // hivodni, es olddata-t amugy is fel kell szabaditani
+						  // ezert tok jok vagyunk!!
+}
+
 Matrix& Matrix::operator=(const Matrix& other) {
 	// inicializalni mar nem kell, hiszen mar
 	// inicializalva van ez az objektum
