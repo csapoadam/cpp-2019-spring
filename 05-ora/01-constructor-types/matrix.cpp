@@ -33,6 +33,7 @@ void Matrix::print() {
 		}
 		std::cout << data[r][ncols - 1] << std::endl;
 	}
+	std::cout << std::endl;
 }
 
 int* Matrix::operator[](int rowinx) {
