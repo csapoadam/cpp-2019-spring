@@ -18,6 +18,20 @@ Matrix::Matrix(int rows, int cols) :
 	}
 }
 
+Matrix::Matrix(const Matrix& other) :
+	Matrix(other.nrows, other.ncols)
+	// constructor delegation
+	// csak inicializalo listaban lehet, kulonben
+	// egy uj Matrix objektum jon letre a torzsben
+{
+	std::cout << "copy constructor called!" << std::endl;
+	for (int r = 0; r < nrows; r++) {
+		for (int c = 0; c < ncols; c++) {
+			data[r][c] = other.data[r][c];
+		}
+	}
+}
+
 Matrix::~Matrix() {
 	std::cout << "Destructor called" << std::endl;
 	for (int r = 0; r < nrows; r++) {
