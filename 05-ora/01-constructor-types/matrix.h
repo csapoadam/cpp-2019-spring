@@ -13,6 +13,7 @@ public:
 	Matrix(const Matrix& other);
 	Matrix(Matrix&& other);
 	Matrix& operator=(const Matrix& other);
+	Matrix& operator=(Matrix&& other);
 	void print();
 	int* operator[](int rowinx);
 };

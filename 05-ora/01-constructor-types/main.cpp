@@ -11,6 +11,13 @@ Matrix createMatrixWOnes(int nrows, int ncols) {
 	return m;
 }
 
+Matrix createMatrixWTwos(int nrows, int ncols) {
+	std::cout << "creating matrix w/ twos" << std::endl;
+	Matrix m = Matrix(nrows, ncols, 2);
+	std::cout << "returning new matrix" << std::endl;
+	return m;
+}
+
 void worker() {
 	Matrix m1(3, 4);
 	m1[2][3] = 10;
@@ -45,6 +52,10 @@ void worker() {
 	// az eredmenyt es utana megszunteti
 	m5[2][3] = 6;
 	std::cout << "m5 created" << std::endl;
+	m5.print();
+	m5 = createMatrixWTwos(3, 4);
+	m5[2][3] = 6;
+	std::cout << "m5 redesigned" << std::endl;
 
 	m1.print();
 	m2.print();

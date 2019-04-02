@@ -42,13 +42,27 @@ Matrix& Matrix::operator=(const Matrix& other) {
 	// inicializalni mar nem kell, hiszen mar
 	// inicializalva van ez az objektum
 	// viszont kell dimension check!!
-	std::cout << "assign operator called" << std::endl;
+	std::cout << "copy assign operator called" << std::endl;
 	if (nrows != other.nrows || ncols != other.ncols) {
 		throw "cannot call assign op for matrices w/ different dimensions";
 	}
 	// unsafe, mert feltetelezzuk h a meretek ugyanazok
 	// nem baj, hogy private :)
 	this->unsafeCopyValuesFrom(other);
+	return *this;
+}
+
+Matrix& Matrix::operator=(Matrix&& other) {
+	// inicializalni mar nem kell, hiszen mar
+	// inicializalva van ez az objektum
+	// viszont kell dimension check!!
+	std::cout << "move assign operator called" << std::endl;
+	if (nrows != other.nrows || ncols != other.ncols) {
+		throw "cannot call assign op for matrices w/ different dimensions";
+	}
+	int** olddata = data;
+	data = other.data; //ennyike...
+	other.data = olddata;
 	return *this;
 }
 
