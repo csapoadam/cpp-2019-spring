@@ -11,6 +11,7 @@ void worker() {
 	Matrix m2 = m1;
 	// ha nem definialunk copy constructort, a fordito
 	// megteszi maga!!
+	// ha letiltjuk a copy constr-t, le se fordul!
 	m2[2][3] = 9; // ez mindket matrixot irja!
 
 	m1.print();

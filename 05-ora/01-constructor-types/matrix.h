@@ -9,6 +9,7 @@ private:
 public:
 	Matrix(int rows, int cols);
 	~Matrix();
+	Matrix(const Matrix& other) = delete; // megtilthato!
 	void print();
 	int* operator[](int rowinx);
 };
