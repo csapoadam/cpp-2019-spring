@@ -22,10 +22,19 @@ void worker() {
 			 // Matrix m4 = m2; // itt a copy constr hivodik meg!
 	m3[2][3] = 8;
 	std::cout << "m3 created" << std::endl;
+	m3.print();
+	
+	// move konstruktor kikenyszeritheto explicit std::move-val (ha letezik move konstr)
+	// ha nem definialtuk a move konstr-t, ugyanugy copy constr fog meghivodni
+	Matrix m4(std::move(m3)); // azt allitjuk, hogy m3-ra
+							  // mar nem lesz szukseg - hibas felhasznalas! (t.keppen)
+	m4[2][3] = 7;
+	std::cout << "m4 created" << std::endl;
 
 	m1.print();
 	m2.print();
 	m3.print();
+	m4.print();
 }
 
 int main()
