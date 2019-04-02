@@ -8,7 +8,7 @@ private:
 	int** data;
 	void unsafeCopyValuesFrom(const Matrix& other);
 public:
-	Matrix(int rows, int cols);
+	Matrix(int rows, int cols, int defaultValue=0);
 	~Matrix();
 	Matrix(const Matrix& other);
 	Matrix& operator=(const Matrix& other);

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "matrix.h"
 
-Matrix::Matrix(int rows, int cols) : 
+Matrix::Matrix(int rows, int cols, int defaultValue) : 
 	nrows(rows), ncols(cols)
 {
 	try {
@@ -9,7 +9,7 @@ Matrix::Matrix(int rows, int cols) :
 		for (int r = 0; r < nrows; r++) {
 			data[r] = new int[ncols];
 			for (int c = 0; c < ncols; c++) {
-				data[r][c] = 0;
+				data[r][c] = defaultValue;
 			}
 		}
 	}

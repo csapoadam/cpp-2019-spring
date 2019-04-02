@@ -4,6 +4,13 @@
 #include "stdafx.h"
 #include "matrix.h"
 
+Matrix createMatrixWOnes(int nrows, int ncols) {
+	std::cout << "creating matrix w/ ones" << std::endl;
+	Matrix m = Matrix(nrows, ncols, 1);
+	std::cout << "returning new matrix" << std::endl;
+	return m;
+}
+
 void worker() {
 	Matrix m1(3, 4);
 	m1[2][3] = 10;
@@ -31,10 +38,19 @@ void worker() {
 	m4[2][3] = 7;
 	std::cout << "m4 created" << std::endl;
 
+	// ha teheti, szinten move konstruktort hasznal
+	// ha nincs olyan, megteszi a copy is...
+	Matrix m5(createMatrixWOnes(3, 4));
+	// destruktor is meghivodik, mivel eloszor kimasolja a fv-bol
+	// az eredmenyt es utana megszunteti
+	m5[2][3] = 6;
+	std::cout << "m5 created" << std::endl;
+
 	m1.print();
 	m2.print();
 	m3.print();
 	m4.print();
+	m5.print();
 }
 
 int main()
