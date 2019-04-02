@@ -36,7 +36,7 @@ void Matrix::print() {
 }
 
 int* Matrix::operator[](int rowinx) {
-	if (rowinx < nrows) {
+	if (rowinx < nrows && rowinx > -1) {
 		return data[rowinx];
 	}
 	return nullptr;
