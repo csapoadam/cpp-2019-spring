@@ -30,6 +30,15 @@ void Matrix<T>::timesTwo() {
 	}
 }
 
+template <>
+void Matrix<std::string>::timesTwo() {
+	for (int r = 0; r < nrows; r++) {
+		for (int c = 0; c < ncols; c++) {
+			data[r][c] = data[r][c].append(data[r][c]);
+		}
+	}
+}
+
 template <typename T>
 Matrix<T>::Matrix(int rows, int cols) :
 	nrows(rows), ncols(cols)

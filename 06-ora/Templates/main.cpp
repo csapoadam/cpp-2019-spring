@@ -76,7 +76,7 @@ void worker() {
 
 	Matrix<std::string> m8(3, 3, "a");
 	m8.print();
-	//m8.timesTwo(); nem hivhato meg!!
+	m8.timesTwo();
 	m8.print();
 }
 
