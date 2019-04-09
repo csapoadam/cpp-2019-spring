@@ -73,10 +73,14 @@ void worker() {
 	m7.print();
 	m7.timesTwo();
 	m7.print();
+	timesThree(m7);
+	m7.print();
 
 	Matrix<std::string> m8(3, 3, "a");
 	m8.print();
 	m8.timesTwo();
+	m8.print();
+	timesThree(m8);
 	m8.print();
 }
 

@@ -19,6 +19,9 @@ public:
 	void print();
 	T* operator[](int rowinx);
 	void timesTwo();
+
+	template <typename T>
+	friend void timesThree(Matrix<T>& m);
 };
 
 template <typename T>
@@ -38,6 +41,26 @@ void Matrix<std::string>::timesTwo() {
 		}
 	}
 }
+
+template <typename T>
+void timesThree(Matrix<T>& m) {
+	for (int r = 0; r < m.nrows; r++) {
+		for (int c = 0; c < m.ncols; c++) {
+			m[r][c] = m[r][c] * 3; // duck typing - does T have a * binary operator?
+		}
+	}
+}
+
+template <>
+void timesThree(Matrix<std::string>& m) {
+	for (int r = 0; r < m.nrows; r++) {
+		for (int c = 0; c < m.ncols; c++) {
+			std::string cur(m[r][c]);
+			m[r][c] = m[r][c].append(cur).append(cur);
+		}
+	}
+}
+
 
 template <typename T>
 Matrix<T>::Matrix(int rows, int cols) :
