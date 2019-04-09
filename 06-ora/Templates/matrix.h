@@ -18,7 +18,17 @@ public:
 	Matrix& operator=(Matrix&& other);
 	void print();
 	T* operator[](int rowinx);
+	void timesTwo();
 };
+
+template <typename T>
+void Matrix<T>::timesTwo() {
+	for (int r = 0; r < nrows; r++) {
+		for (int c = 0; c < ncols; c++) {
+			data[r][c] = data[r][c] * 2; // duck typing - does T have a * binary operator?
+		}
+	}
+}
 
 template <typename T>
 Matrix<T>::Matrix(int rows, int cols) :
@@ -40,9 +50,7 @@ Matrix<T>::Matrix(int rows, int cols) :
 }
 
 template <typename T>
-Matrix<T>::Matrix(int rows, int cols, T fillValue) :
-	nrows(rows), ncols(cols)
-{
+Matrix<T>::Matrix(int rows, int cols, T fillValue) : nrows(rows), ncols(cols) {
 	try {
 		data = new T*[nrows];
 		for (int r = 0; r < nrows; r++) {

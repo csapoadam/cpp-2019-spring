@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "matrix.h"
+#include <string>
 
 Matrix<int> createMatrixWOnes(int nrows, int ncols) {
 	std::cout << "creating matrix w/ ones" << std::endl;
@@ -37,7 +38,7 @@ void worker() {
 	m3[2][3] = 8;
 	std::cout << "m3 created" << std::endl;
 	m3.print();
-	
+
 	// move konstruktor kikenyszeritheto explicit std::move-val (ha letezik move konstr)
 	// ha nem definialtuk a move konstr-t, ugyanugy copy constr fog meghivodni
 	Matrix<int> m4(std::move(m3)); // azt allitjuk, hogy m3-ra
@@ -62,6 +63,21 @@ void worker() {
 	m3.print(); // m3 itt most mar csupa 0 (vagy felul lett irva szemettel)
 	m4.print();
 	m5.print();
+
+	Matrix<int> m6(3,3,5);
+	m6.print();
+	m6.timesTwo();
+	m6.print();
+
+	Matrix<char> m7(3, 3, 'a');
+	m7.print();
+	m7.timesTwo();
+	m7.print();
+
+	Matrix<std::string> m8(3, 3, "a");
+	m8.print();
+	//m8.timesTwo(); nem hivhato meg!!
+	m8.print();
 }
 
 int main()
